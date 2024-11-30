@@ -29,11 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = $result->fetch();
 
         if ($user) {
-            echo 'successfully login<br>';
+            echo '<h2>successfully login</h2>';
+            echo '<br><br><h2>sql query</h2>';
             echo $query;
             // echo '<script>locatoin = alert(4)</script>';                               
         } else {
-            echo 'login failure<br>';
+            echo '<h2>login failure</h2>';
+            echo '<br><br><h2>sql query</h2>';
             echo $query;
         }
     } catch (PDOException $e) {
