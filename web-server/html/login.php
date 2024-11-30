@@ -22,17 +22,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    $query = "SELECT * FROM users WHERE username = '" . $username . "' and password = '" . $password . "'";
-    $result = $pdo->query($query);
-    $user = $result->fetch();
+    
+    try{
+        $query = "SELECT * FROM users WHERE username = '" . $username . "' and password = '" . $password . "'";
+        $result = $pdo->query($query);
+        $user = $result->fetch();
 
-    if ($user) {
-        echo 'successfully login<br>';
-        echo $query;
-        // echo '<script>locatoin = alert(4)</script>';                               
-    } else {
-        echo 'login failure<br>';
+        if ($user) {
+            echo 'successfully login<br>';
+            echo $query;
+            // echo '<script>locatoin = alert(4)</script>';                               
+        } else {
+            echo 'login failure<br>';
+            echo $query;
+        }
+    } catch (PDOException $e) {
+        
+        echo '<h2>followin error has occurred:</h2>' . $e->getMessage();
+        echo '<br><br><h2>sql query</h2>';
         echo $query;
     }
+    
 }
 ?>
