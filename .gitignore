@@ -1,0 +1,4 @@
+client/.venv/
+mysql-db/data/
+mongo-db/data/
+mongo-db/.bash_history
