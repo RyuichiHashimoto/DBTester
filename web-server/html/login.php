@@ -18,26 +18,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pdo = new PDO($dsn, $db_user, $db_password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
-        echo 'データベース接続に失敗しました: ' . $e->getMessage();
+        echo 'fail to connect to database: ' . $e->getMessage();
         exit();
     }
 
-    // $query = "SELECT * FROM users WHERE username = '" . $username . "'";
     $query = "SELECT * FROM users WHERE username = '" . $username . "' and password = '" . $password . "'";
     $result = $pdo->query($query);
     $user = $result->fetch();
 
     if ($user) {
-        // echo 'ログインに成功しました。';        
-        echo '<script>locatoin = alert(4)</script>';
-        
-        // リダイレクト処理
-        header("Location: $url");
-
-        // 必須: スクリプトを終了
-        exit();
+        echo 'successfully login<br>';
+        echo $query;
+        // echo '<script>locatoin = alert(4)</script>';                               
     } else {
-        echo 'ログインに失敗しました。';
+        echo 'login failure<br>';
+        echo $query;
     }
 }
 ?>
