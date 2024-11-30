@@ -1,0 +1,65 @@
+version: "3.9"
+
+
+
+services:
+  db-client:
+    build: 
+      context: client
+      dockerfile: Dockerfile
+
+    volumes:
+      - ./client/:/home/work
+    restart: always
+    container_name: db-client
+    command: sleep 4000000000000000
+  
+    networks:
+      - ctf-network
+
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo-db/data:/data/db
+    networks:
+      - ctf-network
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    ports:
+      - "3306:3306"  # ホストの3306ポートをコンテナの3306ポートにマッピング
+    env_file:
+      - ./.env   # 読み込む環境変数ファイルを指定
+    volumes:
+      - ./mysql-db/data/:/var/lib/mysql  # MySQLデータ永続化用のボリューム
+      - ./mysql-db/init/:/docker-entrypoint-initdb.d/  # 初期化SQLファイルのマウント
+    networks:
+      - ctf-network
+
+  web-server:
+    build: 
+      context: web-server
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    container_name: web-server
+    volumes:
+      - ./web-server/html:/var/www/html
+    env_file:
+      - ./.env   # 読み込む環境変数ファイルを指定
+    networks:
+      - ctf-network
+
+
+# 別途ネットワークを準備した
+networks:
+  ctf-network:
+    name: ctf-network
+    
