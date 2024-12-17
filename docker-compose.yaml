@@ -43,15 +43,29 @@ services:
     networks:
       - ctf-network
 
-  web-server:
+  web-server-php:
     build: 
-      context: web-server
+      context: web-server-php
       dockerfile: Dockerfile
     ports:
       - "4200:80"
-    container_name: web-server
+    container_name: web-server-php
     volumes:
-      - ./web-server/html:/var/www/html
+      - ./web-server-php/html:/var/www/html
+    env_file:
+      - ./.env   # 読み込む環境変数ファイルを指定
+    networks:
+      - ctf-network
+
+  web-server-flask:
+    build: 
+      context: web-server-flask
+      dockerfile: Dockerfile
+    ports:
+      - "4201:80"
+    container_name: web-server-flask
+    volumes:
+      - ./web-server-flask/html:/var/www/html
     env_file:
       - ./.env   # 読み込む環境変数ファイルを指定
     networks:
